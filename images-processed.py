@@ -21,8 +21,8 @@ sfx = signalfx.SignalFx().ingest(os.environ['SF_TOKEN'])
 try:
     while True:
         sfx.send(counters=[
-          {'metric': 'documents.processed',
-          'value': random.randint(700,1200),
+          {'metric': 'images.processed',
+          'value': random.randint(500,1000),
           'timestamp':int(round(time.time()*1000)),
           'dimensions': {'containerId': socket.gethostname(),'user': userDim}
           }
