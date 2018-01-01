@@ -18,6 +18,7 @@ if 'USER_DIM' in os.environ:
 
 sfx = signalfx.SignalFx().ingest(os.environ['SF_TOKEN'])
 
+
 try:
     while True:
         sfx.send(counters=[
