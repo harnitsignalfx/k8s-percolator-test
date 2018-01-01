@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: perc-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: images-processed
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 1
+  template:
+    metadata:
+      labels:
+        service: images-processed
+    spec:
+      containers:
+      - name: perc
+        image: harnit/k8s-percolator-test:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 443
+        env:
+          - name: SF_TOKEN
+            value: "<SET TOKEN>"
+          - name: USER_DIM
+            value: "Default"
